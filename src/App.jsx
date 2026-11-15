@@ -9,6 +9,7 @@ import SystemSettings from "./components/SystemSettings";
 import AdminLoginModal from "./components/AdminLoginModal";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import { fetchPortfolioFromCloud, savePortfolioToCloud, checkAdminSession, logoutAdmin } from "./services/portfolioDb";
+import { sounds } from "./utils/sound";
 
 const themeColors = ["#EEEEEE", "#00DAE3", "#36EE8E", "#FFE238", "#FF3E65", "#A18DFF"];
 
@@ -54,6 +55,12 @@ function App() {
         setIsAdminLoggedIn(false);
       }
     });
+
+    // Auto-start ambient sound loop anytime user opens site (unless user explicitly muted)
+    if (!sounds.userExplicitlyMuted && !sounds.isPlaying) {
+      sounds.playTrack(sounds.currentTrack);
+      sounds.bindAutoResume();
+    }
   }, []);
 
   const handleCornerKatiharClick = () => {
