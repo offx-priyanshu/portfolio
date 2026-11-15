@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 import initialProjectsData from "../../data/initialProjects.json";
 import initialAboutData from "../../data/initialAboutData.json";
-import { savePortfolioToCloud, uploadPortfolioFile } from "../../services/portfolioDb";
+import { savePortfolioToCloud, uploadPortfolioFile, changeAdminPassword } from "../../services/portfolioDb";
 import {
   FaUserShield,
   FaUserTie,
@@ -26,7 +26,9 @@ import {
   FaFilePdf,
   FaDownload,
   FaCogs,
-  FaSpinner
+  FaSpinner,
+  FaKey,
+  FaLock
 } from "react-icons/fa";
 
 const adminTabs = [
@@ -158,6 +160,13 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  // Password Change State
+  const [currPass, setCurrPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [passLoading, setPassLoading] = useState(false);
+  const [passMsg, setPassMsg] = useState({ text: "", type: "" });
   const [data, setData] = useState(() => {
     const saved = localStorage.getItem("portfolio_cms_state");
     if (saved) {
@@ -249,6 +258,43 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
       alert("Image upload error: " + (err.message || "Could not upload image"));
     } finally {
       setUploadingImage(false);
+    }
+  };
+
+  const handleChangePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setPassMsg({ text: "", type: "" });
+
+    if (!currPass || !newPass) {
+      setPassMsg({ text: "Current and new password are required.", type: "error" });
+      return;
+    }
+
+    if (newPass.length < 6) {
+      setPassMsg({ text: "New password must be at least 6 characters.", type: "error" });
+      return;
+    }
+
+    if (newPass !== confirmPass) {
+      setPassMsg({ text: "New password and confirmation do not match.", type: "error" });
+      return;
+    }
+
+    setPassLoading(true);
+    try {
+      const res = await changeAdminPassword(currPass, newPass);
+      if (res.success) {
+        setPassMsg({ text: res.message || "Password updated successfully!", type: "success" });
+        setCurrPass("");
+        setNewPass("");
+        setConfirmPass("");
+      } else {
+        setPassMsg({ text: res.error || "Could not update password.", type: "error" });
+      }
+    } catch (err) {
+      setPassMsg({ text: err.message || "Password service error.", type: "error" });
+    } finally {
+      setPassLoading(false);
     }
   };
 
@@ -2728,6 +2774,94 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Security & Password Change Card */}
+              <div style={{ marginTop: "24px", padding: "18px", background: "#080811", border: "1px solid rgba(139, 92, 246, 0.35)", borderRadius: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
+                  <FaKey color="#ec4899" size={16} />
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff", letterSpacing: "0.5px" }}>
+                    SECURITY: CHANGE ADMINISTRATOR PASSWORD
+                  </span>
+                  <span style={{ fontSize: "10px", background: "rgba(236, 72, 153, 0.2)", color: "#f472b6", padding: "2px 8px", borderRadius: "12px" }}>
+                    Neon DB Cloud Synchronized
+                  </span>
+                </div>
+
+                {passMsg.text && (
+                  <div style={{
+                    padding: "10px 14px",
+                    borderRadius: "6px",
+                    marginBottom: "14px",
+                    fontSize: "12px",
+                    background: passMsg.type === "success" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
+                    border: passMsg.type === "success" ? "1px solid #10b981" : "1px solid #ef4444",
+                    color: passMsg.type === "success" ? "#34d399" : "#fca5a5"
+                  }}>
+                    {passMsg.text}
+                  </div>
+                )}
+
+                <form onSubmit={handleChangePasswordSubmit}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginBottom: "14px" }}>
+                    <div className="admin-field" style={{ margin: 0 }}>
+                      <label style={{ fontSize: "11px" }}>Current Password</label>
+                      <input
+                        type="password"
+                        value={currPass}
+                        onChange={(e) => setCurrPass(e.target.value)}
+                        placeholder="Current password"
+                        required
+                        style={{ background: "#0d0d1a" }}
+                      />
+                    </div>
+                    <div className="admin-field" style={{ margin: 0 }}>
+                      <label style={{ fontSize: "11px" }}>New Password</label>
+                      <input
+                        type="password"
+                        value={newPass}
+                        onChange={(e) => setNewPass(e.target.value)}
+                        placeholder="Minimum 6 characters"
+                        required
+                        style={{ background: "#0d0d1a" }}
+                      />
+                    </div>
+                    <div className="admin-field" style={{ margin: 0 }}>
+                      <label style={{ fontSize: "11px" }}>Confirm New Password</label>
+                      <input
+                        type="password"
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                        placeholder="Re-enter new password"
+                        required
+                        style={{ background: "#0d0d1a" }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <button
+                      type="submit"
+                      disabled={passLoading}
+                      style={{
+                        background: "linear-gradient(135deg, #7c3aed, #ec4899)",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "6px",
+                        padding: "8px 18px",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        cursor: passLoading ? "not-allowed" : "pointer",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px"
+                      }}
+                    >
+                      {passLoading ? <FaSpinner className="spin-icon" /> : <FaLock size={12} />}
+                      <span>{passLoading ? "Updating in Neon DB..." : "Update Password"}</span>
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           )}

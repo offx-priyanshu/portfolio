@@ -95,3 +95,4 @@ export function checkRateLimit(ip, maxAttempts = 5, windowMs = 15 * 60 * 1000) {
 export function resetRateLimit(ip) {
   loginAttempts.delete(ip);
 }
+
