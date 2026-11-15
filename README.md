@@ -1,6 +1,9 @@
-# Priyanshu Kumar — 3D Cybernetic Portfolio & CMS
-
-A high-performance, interactive personal portfolio website showcasing data science, AI/ML engineering, and full-stack projects. Built with React 19, Three.js WebGL particle physics, Neon Serverless PostgreSQL database, and a full-featured live CMS admin dashboard.
+<div align="center">
+  <img src="Photo.png" alt="Priyanshu Kumar" width="220" style="border-radius: 12px; margin-bottom: 16px;" />
+  <h1>Priyanshu Kumar</h1>
+  <p><strong>3D Cybernetic Portfolio & CMS Platform</strong></p>
+  <p><em>Aspiring Data Scientist | AI & Machine Learning | Generative AI</em></p>
+</div>
 
 ---
 
