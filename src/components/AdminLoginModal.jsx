@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./AdminLoginModal.css";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash, FaShieldAlt } from "react-icons/fa";
+import { loginAdmin } from "../services/portfolioDb";
 
 export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [email, setEmail] = useState("priyanshugse@gmail.com");
@@ -13,6 +14,8 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setErrorMsg("");
+      setPassword("");
     } else {
       document.body.style.overflow = "";
     }
@@ -23,28 +26,31 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
     setSuccessMsg("");
     setLoading(true);
 
-    setTimeout(() => {
-      // Secure local credential check
-      const validEmail = (email || "").trim().toLowerCase() === "priyanshugse@gmail.com";
-      const validPass = password === "admin123" || password === "priyanshu@ai";
+    try {
+      const result = await loginAdmin(email, password);
 
-      if (validEmail && validPass) {
+      if (result.success) {
         setSuccessMsg("Welcome back, Priyanshu! Access granted.");
-        if (onLoginSuccess) {
-          onLoginSuccess();
-        }
-        onClose();
+        setTimeout(() => {
+          if (onLoginSuccess) {
+            onLoginSuccess();
+          }
+          onClose();
+        }, 500);
       } else {
-        setErrorMsg("Invalid admin credentials. Please verify your email and password.");
+        setErrorMsg(result.error || "Invalid admin credentials. Please try again.");
       }
+    } catch (err) {
+      setErrorMsg(err.message || "Authentication service error. Please try again.");
+    } finally {
       setLoading(false);
-    }, 600);
+    }
   };
 
   const handleForgotPassword = () => {

@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 import initialProjectsData from "../../data/initialProjects.json";
 import initialAboutData from "../../data/initialAboutData.json";
-import { savePortfolioToCloud } from "../../services/portfolioDb";
+import { savePortfolioToCloud, uploadPortfolioFile } from "../../services/portfolioDb";
 import {
   FaUserShield,
+  FaUserTie,
   FaBrain,
   FaProjectDiagram,
   FaGraduationCap,
@@ -23,15 +24,19 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaFilePdf,
-  FaDownload
+  FaDownload,
+  FaCogs,
+  FaSpinner
 } from "react-icons/fa";
 
 const adminTabs = [
+  { id: "profile", label: "Profile Management", icon: FaUserTie },
   { id: "about", label: "About Section Management", icon: FaBrain },
   { id: "projects", label: "Projects Fleet Management", icon: FaProjectDiagram },
   { id: "journey", label: "Journey & Experience", icon: FaRoute },
   { id: "education", label: "Education & GPAs", icon: FaGraduationCap },
   { id: "stats", label: "Developer Stats Panel", icon: FaProjectDiagram },
+  { id: "settings", label: "Portfolio & SEO Settings", icon: FaCogs },
   { id: "contact", label: "Contact Details", icon: FaEnvelopeOpenText }
 ];
 
@@ -148,7 +153,11 @@ const DEFAULT_PORTFOLIO_STATE = {
 };
 
 export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveState }) {
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("profile");
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [data, setData] = useState(() => {
     const saved = localStorage.getItem("portfolio_cms_state");
     if (saved) {
@@ -188,20 +197,59 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
     }
     return DEFAULT_PORTFOLIO_STATE;
   });
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const handleSave = async () => {
+    setSaveLoading(true);
+    setSaveError("");
+    setSaveSuccess(false);
 
-  useEffect(() => {
-    localStorage.setItem("portfolio_cms_state", JSON.stringify(data));
-  }, [data]);
-
-  const handleSave = () => {
-    localStorage.setItem("portfolio_cms_state", JSON.stringify(data));
-    savePortfolioToCloud(data);
-    if (onSaveState) {
-      onSaveState(data);
+    try {
+      localStorage.setItem("portfolio_cms_state", JSON.stringify(data));
+      const res = await savePortfolioToCloud(data);
+      if (res && res.success === false) {
+        setSaveError(res.error || "Failed to sync to cloud database.");
+      } else {
+        if (onSaveState) {
+          onSaveState(data);
+        }
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 3500);
+      }
+    } catch (err) {
+      setSaveError(err.message || "Failed to save portfolio state.");
+    } finally {
+      setSaveLoading(false);
     }
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
+  };
+
+  const handleProfileImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload an image file (PNG, JPG, WebP).");
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const uploadRes = await uploadPortfolioFile(file, "profile");
+      if (uploadRes && uploadRes.url) {
+        const updated = {
+          ...data,
+          profile: {
+            ...(data.profile || {}),
+            image: uploadRes.url
+          }
+        };
+        setData(updated);
+        localStorage.setItem("portfolio_cms_state", JSON.stringify(updated));
+        if (onSaveState) onSaveState(updated);
+      }
+    } catch (err) {
+      alert("Image upload error: " + (err.message || "Could not upload image"));
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const handleAddStat = () => {
@@ -566,6 +614,186 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
             <div className="admin-save-alert success">
               <FaCheckCircle size={16} />
               <span>All changes saved and synchronized with your live portfolio!</span>
+            </div>
+          )}
+
+          {saveError && (
+            <div className="admin-save-alert error" style={{ background: "rgba(239, 68, 68, 0.2)", border: "1px solid #ef4444", color: "#fca5a5" }}>
+              <span>{saveError}</span>
+            </div>
+          )}
+
+          {/* 0. Profile Management */}
+          {activeTab === "profile" && (
+            <div className="cms-card">
+              <div className="cms-card-header">
+                <h4><FaUserTie /> [0] Profile & Core Identity Management</h4>
+                <p>Customize your personal identity, roles, hero typography, profile image, and official resume</p>
+              </div>
+
+              {/* Profile Image & Resume Row */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "20px" }}>
+                {/* Profile Image Management */}
+                <div style={{ padding: "16px", background: "#0a0a14", border: "1px solid rgba(139, 92, 246, 0.25)", borderRadius: "8px" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}>
+                      <FaImage color="#c4b5fd" /> PROFILE IMAGE / AVATAR
+                    </span>
+                    <label style={{ background: "#7c3aed", color: "#fff", padding: "4px 10px", borderRadius: "5px", fontSize: "11px", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                      <FaUpload size={10} />
+                      <span>{uploadingImage ? "Uploading..." : "Upload New Image"}</span>
+                      <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleProfileImageUpload} disabled={uploadingImage} />
+                    </label>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                    <div style={{ width: "80px", height: "80px", borderRadius: "10px", overflow: "hidden", border: "2px solid rgba(139, 92, 246, 0.4)", background: "#000", flexShrink: 0 }}>
+                      <img
+                        src={data.profile?.image || `${import.meta.env.BASE_URL}priyanshu-enhanced.jpg`}
+                        alt="Profile Preview"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ fontSize: "11px", color: "#888", display: "block", marginBottom: "4px" }}>Image Direct URL / Path</label>
+                      <input
+                        type="text"
+                        value={data.profile?.image || ""}
+                        onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), image: e.target.value } })}
+                        placeholder="https://... or /priyanshu-enhanced.jpg"
+                        style={{ width: "100%", background: "#080811", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "5px", padding: "6px 10px", color: "#fff", fontSize: "12px" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Resume / CV Document */}
+                <div style={{ padding: "16px", background: "#0a0a14", border: "1px solid rgba(139, 92, 246, 0.25)", borderRadius: "8px" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}>
+                      <FaFilePdf color="#ec4899" /> OFFICIAL RESUME (PDF)
+                    </span>
+                    <label style={{ background: "linear-gradient(135deg, #ec4899, #be185d)", color: "#fff", padding: "4px 10px", borderRadius: "5px", fontSize: "11px", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                      <FaUpload size={10} />
+                      <span>Upload PDF</span>
+                      <input type="file" accept="application/pdf" style={{ display: "none" }} onChange={handleResumePdfUpload} />
+                    </label>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: "11px", color: "#888", display: "block", marginBottom: "4px" }}>Resume File Name / URL</label>
+                    <input
+                      type="text"
+                      value={data.resumeUrl && !data.resumeUrl.startsWith("data:") ? data.resumeUrl : (data.resumeFileName || "priyanshu-resume.pdf")}
+                      onChange={(e) => setData({ ...data, resumeUrl: e.target.value, resumeFileName: e.target.value.split("/").pop() || "Resume.pdf" })}
+                      placeholder="Resume URL or file name"
+                      style={{ width: "100%", background: "#080811", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "5px", padding: "6px 10px", color: "#fff", fontSize: "12px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Core Identity Fields */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "16px" }}>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    value={data.profile?.name || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), name: e.target.value } })}
+                    placeholder="Priyanshu Kumar"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Email Address</label>
+                  <input
+                    type="email"
+                    value={data.profile?.email || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), email: e.target.value } })}
+                    placeholder="priyanshugse@gmail.com"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Contact Number</label>
+                  <input
+                    type="text"
+                    value={data.profile?.phone || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), phone: e.target.value } })}
+                    placeholder="9060956707"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Location / City</label>
+                  <input
+                    type="text"
+                    value={data.profile?.location || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), location: e.target.value } })}
+                    placeholder="Katihar, Bihar, India"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Professional Tagline / Role</label>
+                  <input
+                    type="text"
+                    value={data.profile?.role || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), role: e.target.value } })}
+                    placeholder="Aspiring Data Scientist"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Academic Degree & University</label>
+                  <input
+                    type="text"
+                    value={data.profile?.degree || ""}
+                    onChange={(e) => setData({ ...data, profile: { ...(data.profile || {}), degree: e.target.value } })}
+                    placeholder="B.Tech CSE (AI & ML) - Sandip University"
+                  />
+                </div>
+              </div>
+
+              {/* Hero Typography & Supporting Introduction */}
+              <div style={{ marginTop: "16px", padding: "16px", background: "#0a0a14", border: "1px solid rgba(139, 92, 246, 0.2)", borderRadius: "8px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, color: "#c4b5fd", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: "12px" }}>
+                  HERO HEADINGS & INTRODUCTORY PARAGRAPH
+                </span>
+                <div className="admin-grid-2" style={{ marginBottom: "12px" }}>
+                  <div className="admin-field" style={{ margin: 0 }}>
+                    <label>Hero Heading Line 1</label>
+                    <input
+                      type="text"
+                      value={data.hero?.headingLine1 || ""}
+                      onChange={(e) => setData({ ...data, hero: { ...(data.hero || {}), headingLine1: e.target.value } })}
+                      placeholder="TURNING DATA"
+                    />
+                  </div>
+                  <div className="admin-field" style={{ margin: 0 }}>
+                    <label>Hero Heading Line 2</label>
+                    <input
+                      type="text"
+                      value={data.hero?.headingLine2 || ""}
+                      onChange={(e) => setData({ ...data, hero: { ...(data.hero || {}), headingLine2: e.target.value } })}
+                      placeholder="INTO INTELLIGENCE"
+                    />
+                  </div>
+                </div>
+                <div className="admin-field">
+                  <label>Hero Subtitle Badge</label>
+                  <input
+                    type="text"
+                    value={data.hero?.subtitle || ""}
+                    onChange={(e) => setData({ ...data, hero: { ...(data.hero || {}), subtitle: e.target.value } })}
+                    placeholder="[ DATA SCIENCE · AI / ML · GENAI ]"
+                  />
+                </div>
+                <div className="admin-field">
+                  <label>Supporting Introduction Paragraph</label>
+                  <textarea
+                    rows={4}
+                    value={data.hero?.introText || ""}
+                    onChange={(e) => setData({ ...data, hero: { ...(data.hero || {}), introText: e.target.value } })}
+                    placeholder="Hi, I'm Priyanshu Kumar, a B.Tech CSE (AI & ML) student..."
+                  />
+                </div>
+              </div>
             </div>
           )}
 
@@ -2404,13 +2632,112 @@ export default function AdminDashboard({ onLogout, onExitToPortfolio, onSaveStat
               </div>
             </>
           )}
+
+          {/* 7. Portfolio & SEO Settings */}
+          {activeTab === "settings" && (
+            <div className="cms-card">
+              <div className="cms-card-header">
+                <h4><FaCogs /> [7] Portfolio Settings, SEO & Visibility Controls</h4>
+                <p>Configure website metadata, search optimization, theme preferences, and public visibility</p>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>Website Title</label>
+                  <input
+                    type="text"
+                    value={data.settings?.siteTitle || "Priyanshu Kumar — Portfolio"}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        settings: { ...(data.settings || {}), siteTitle: e.target.value }
+                      })
+                    }
+                    placeholder="Priyanshu Kumar — Data Scientist & AI/ML Engineer"
+                  />
+                </div>
+                <div className="admin-field" style={{ margin: 0 }}>
+                  <label>SEO Keywords (Comma-separated)</label>
+                  <input
+                    type="text"
+                    value={data.settings?.seoKeywords || "Data Science, Machine Learning, AI, Python, Deep Learning, GenAI"}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        settings: { ...(data.settings || {}), seoKeywords: e.target.value }
+                      })
+                    }
+                    placeholder="Data Science, Machine Learning, AI, Deep Learning"
+                  />
+                </div>
+              </div>
+
+              <div className="admin-field">
+                <label>SEO Meta Description</label>
+                <textarea
+                  rows={3}
+                  value={data.settings?.seoDescription || "Personal 3D interactive portfolio of Priyanshu Kumar specializing in AI, Machine Learning, and Data Science."}
+                  onChange={(e) =>
+                    setData({
+                      ...data,
+                      settings: { ...(data.settings || {}), seoDescription: e.target.value }
+                    })
+                  }
+                  placeholder="Meta description for search engines and social cards..."
+                />
+              </div>
+
+              {/* Visibility & Security Switches */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginTop: "20px" }}>
+                <div style={{ padding: "14px", background: "#0a0a14", border: "1px solid rgba(139, 92, 246, 0.2)", borderRadius: "8px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <strong style={{ display: "block", color: "#fff", fontSize: "13px" }}>Public Portfolio Visibility</strong>
+                      <span style={{ fontSize: "11px", color: "#888" }}>Allow search crawlers & public visitors</span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={data.settings?.isPublic !== false}
+                      onChange={(e) =>
+                        setData({
+                          ...data,
+                          settings: { ...(data.settings || {}), isPublic: e.target.checked }
+                        })
+                      }
+                      style={{ width: "18px", height: "18px", accentColor: "#7c3aed", cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ padding: "14px", background: "#0a0a14", border: "1px solid rgba(139, 92, 246, 0.2)", borderRadius: "8px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <strong style={{ display: "block", color: "#fff", fontSize: "13px" }}>Contact Info Visibility</strong>
+                      <span style={{ fontSize: "11px", color: "#888" }}>Display phone & direct email on about page</span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={data.settings?.showContactInfo !== false}
+                      onChange={(e) =>
+                        setData({
+                          ...data,
+                          settings: { ...(data.settings || {}), showContactInfo: e.target.checked }
+                        })
+                      }
+                      style={{ width: "18px", height: "18px", accentColor: "#7c3aed", cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Sticky Action Footer */}
         <footer className="admin-action-bar">
-          <button className="btn-cms-save" onClick={handleSave}>
-            <FaSave />
-            <span>Save Changes</span>
+          <button className="btn-cms-save" onClick={handleSave} disabled={saveLoading}>
+            {saveLoading ? <FaSpinner className="spin-icon" /> : <FaSave />}
+            <span>{saveLoading ? "Saving to Cloud Database..." : "Save Changes"}</span>
           </button>
         </footer>
       </main>

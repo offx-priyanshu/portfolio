@@ -8,7 +8,7 @@ import Contact from "./pages/Contact/Contact";
 import SystemSettings from "./components/SystemSettings";
 import AdminLoginModal from "./components/AdminLoginModal";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import { fetchPortfolioFromCloud, savePortfolioToCloud } from "./services/portfolioDb";
+import { fetchPortfolioFromCloud, savePortfolioToCloud, checkAdminSession, logoutAdmin } from "./services/portfolioDb";
 
 const themeColors = ["#EEEEEE", "#00DAE3", "#36EE8E", "#FFE238", "#FF3E65", "#A18DFF"];
 
@@ -38,11 +38,20 @@ function App() {
   const cornerClickRef = useRef(0);
   const cornerTimerRef = useRef(null);
 
-  // Initial fetch from Neon DB Cloud
+  // Initial fetch from Neon DB Cloud & verify server admin session
   useEffect(() => {
     fetchPortfolioFromCloud().then((cloudData) => {
       if (cloudData) {
         setCmsState(cloudData);
+      }
+    });
+
+    // Check secure HTTP-only / bearer token session from server
+    checkAdminSession().then((res) => {
+      if (res && res.authenticated) {
+        setIsAdminLoggedIn(true);
+      } else {
+        setIsAdminLoggedIn(false);
       }
     });
   }, []);
@@ -209,8 +218,8 @@ function App() {
         {activePage === "Admin" && (
           <AdminDashboard
             onLogout={() => {
+              logoutAdmin();
               setIsAdminLoggedIn(false);
-              localStorage.removeItem("is_admin_authenticated");
               handlePageChange("Home");
             }}
             onExitToPortfolio={() => handlePageChange("Home")}
@@ -228,7 +237,6 @@ function App() {
         onClose={() => setAdminModalOpen(false)}
         onLoginSuccess={() => {
           setIsAdminLoggedIn(true);
-          localStorage.setItem("is_admin_authenticated", "true");
           setActivePage("Admin");
           window.location.hash = "admin";
           setAdminModalOpen(false);
