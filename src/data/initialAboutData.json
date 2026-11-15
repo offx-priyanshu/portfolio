@@ -1,0 +1,224 @@
+{
+  "intro": {
+    "kicker": "Aspiring Data Scientist | AI & Machine Learning | Generative AI",
+    "headingLine1": "TURNING DATA",
+    "headingLine2": "INTO INTELLIGENCE",
+    "prose": "Hi, I'm Priyanshu Kumar, a B.Tech Computer Science and Engineering student specializing in Artificial Intelligence and Machine Learning at Sandip University."
+  },
+  "sections": {
+    "whoIAm": "I have a growing passion for Data Science, Machine Learning, Deep Learning, and Generative AI. I enjoy working with Python, analyzing datasets, developing machine learning models, and building intelligent applications that solve practical problems.",
+    "technicalInterests": "Through my internships and hands-on projects, I have explored data preprocessing, exploratory data analysis, model development, AI applications, and full-stack development. I'm also exploring Large Language Models (LLMs), Generative AI, AI Agents, Retrieval-Augmented Generation (RAG), APIs, and MLOps to understand how intelligent systems are developed and deployed in real-world environments.",
+    "leadership": "Beyond technical learning, I serve as a Class Representative and have experience leading project teams, coordinating activities, collaborating with developers, and managing responsibilities. One of my memorable achievements was securing a TOP 3 position in CHECKMATE during our three-month CRT journey with Team Impact Crew and our project DORMIQ.",
+    "careerGoals": "My goal is to grow into a skilled Data Scientist who can transform complex data into meaningful insights and build impactful, data-driven solutions. I believe in continuous learning, practical implementation, teamwork, and building technology that makes a difference."
+  },
+  "principles": [
+    {
+      "id": "pr_1",
+      "title": "Build by hand",
+      "desc": "Start with a small working interface. Extract a component once a second screen needs it."
+    },
+    {
+      "id": "pr_2",
+      "title": "Measure the work",
+      "desc": "Trace the slow request from the browser to the database before changing the query."
+    },
+    {
+      "id": "pr_3",
+      "title": "Give motion a job",
+      "desc": "Use movement to show which project is in focus and where the next one begins."
+    },
+    {
+      "id": "pr_4",
+      "title": "Design for a phone",
+      "desc": "Check controls, reading order, and load time on the screen a visitor actually uses."
+    },
+    {
+      "id": "pr_5",
+      "title": "Leave a clear trail",
+      "desc": "Give functions plain names and keep the reason for each technical decision close to the code."
+    }
+  ],
+  "dossierSummary": "I'm a third-year Computer Science and Engineering student specializing in Artificial Intelligence and Machine Learning. I'm building my technical foundation in Python, SQL, Data Science, Machine Learning, and Deep Learning. I enjoy practical implementation, problem-solving, and developing intelligent applications. I'm continuously exploring Generative AI, Large Language Models, and modern AI technologies while working towards my goal of becoming a Data Scientist.",
+  "technicalSkills": [
+    {
+      "id": "ts_1",
+      "category": "PROGRAMMING",
+      "items": ["Python", "C", "SQL", "JavaScript"]
+    },
+    {
+      "id": "ts_2",
+      "category": "DATA SCIENCE & ANALYTICS",
+      "items": [
+        "NumPy",
+        "Pandas",
+        "Matplotlib",
+        "Seaborn",
+        "Data Cleaning",
+        "Exploratory Data Analysis",
+        "Data Visualization",
+        "Statistics"
+      ]
+    },
+    {
+      "id": "ts_3",
+      "category": "MACHINE LEARNING & DEEP LEARNING",
+      "items": [
+        "Scikit-learn",
+        "TensorFlow",
+        "PyTorch",
+        "Machine Learning",
+        "Deep Learning",
+        "CNN",
+        "OpenCV"
+      ]
+    },
+    {
+      "id": "ts_4",
+      "category": "GENERATIVE AI",
+      "items": [
+        "Generative AI",
+        "LLMs",
+        "Prompt Engineering",
+        "RAG",
+        "LangChain",
+        "AI Agents"
+      ]
+    },
+    {
+      "id": "ts_5",
+      "category": "BACKEND & APIs",
+      "items": ["Python", "Flask", "FastAPI", "REST APIs"]
+    },
+    {
+      "id": "ts_6",
+      "category": "DATABASES",
+      "items": ["MySQL", "SQLite", "PostgreSQL", "MongoDB"]
+    },
+    {
+      "id": "ts_7",
+      "category": "TOOLS",
+      "items": [
+        "Git",
+        "GitHub",
+        "VS Code",
+        "Jupyter Notebook",
+        "Google Colab",
+        "Streamlit",
+        "Postman"
+      ]
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp_1",
+      "company": "Cognifyz Technologies",
+      "role": "Data Science Intern",
+      "period": "05 May 2026 – 05 June 2026",
+      "location": "Remote",
+      "highlights": [
+        "Worked as a Data Science Intern, gaining hands-on exposure to data analysis, dataset preprocessing, and analytical problem-solving.",
+        "Engineered data-driven solutions and performed exploratory data analysis (EDA) using Python, Pandas, and visualization libraries."
+      ]
+    },
+    {
+      "id": "exp_2",
+      "company": "Career Foresight (C-DAC ATC), Patna",
+      "role": "Artificial Intelligence Intern",
+      "period": "01 June 2026 – 30 June 2026",
+      "location": "Patna, India (Offline)",
+      "highlights": [
+        "Participated in an intensive Artificial Intelligence summer internship involving core AI concepts and team collaboration.",
+        "Engaged in project development activities, AI model workflows, and technical project management skills."
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach_1",
+      "badge": "TOP 3 FINALIST",
+      "title": "CHECKMATE — 3-Month CRT Journey",
+      "project": "DORMIQ (SmartHostel AI)",
+      "team": "Team Impact Crew",
+      "desc": "Secured TOP 3 in CHECKMATE among competitive project teams during our intensive three-month CRT journey. Led technical discussions and developed core architecture."
+    },
+    {
+      "id": "ach_2",
+      "badge": "LEADERSHIP",
+      "title": "Class Representative & Project Lead",
+      "project": "Department of CSE (AI & ML)",
+      "team": "Sandip University",
+      "desc": "Serving as Class Representative and Project Lead. Coordinating academic and technical events, mentoring peers, and driving cross-functional team collaborations."
+    },
+    {
+      "id": "ach_3",
+      "badge": "ACADEMIC EXCELLENCE",
+      "title": "Consistent Academic Distinction",
+      "project": "B.Tech CSE (AI & ML)",
+      "team": "Sem 1: 9.00 | Sem 4: 8.73",
+      "desc": "Maintained strong academic standing across all semesters (Sem 1: 9.00, Sem 2: 8.26, Sem 3: 8.35, Sem 4: 8.73) with strong focus on AI & mathematical foundations."
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert_1",
+      "title": "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+      "issuer": "Oracle University",
+      "topics": "AI/ML Fundamentals, Cloud AI Infrastructure & GenAI Architecture"
+    },
+    {
+      "id": "cert_2",
+      "title": "Machine Learning Specialization",
+      "issuer": "DeepLearning.AI / Stanford Online",
+      "topics": "Supervised Learning, Advanced Learning Algorithms & Unsupervised Learning"
+    },
+    {
+      "id": "cert_3",
+      "title": "Python Coder",
+      "issuer": "Kaggle",
+      "topics": "Python for Data Analysis, Algorithms & Scientific Computing"
+    },
+    {
+      "id": "cert_4",
+      "title": "Building AI Agents with MongoDB",
+      "issuer": "MongoDB",
+      "topics": "AI Agents Architecture, Vector Search & Retrieval Mechanisms"
+    },
+    {
+      "id": "cert_5",
+      "title": "Deploying and Evaluating GenAI Apps",
+      "issuer": "MongoDB",
+      "topics": "LLM App Deployment, Evaluation Metrics & RAG Pipelines"
+    },
+    {
+      "id": "cert_6",
+      "title": "Explore Azure Machine Learning Workspace Resources and Assets",
+      "issuer": "Microsoft Learn",
+      "topics": "Azure ML Studio, Model Assets & MLOps Infrastructure"
+    },
+    {
+      "id": "cert_7",
+      "title": "Use AI for Everyday Tasks",
+      "issuer": "Microsoft Learn",
+      "topics": "Modern Artificial Intelligence Applications & Productivity AI"
+    },
+    {
+      "id": "cert_8",
+      "title": "The Complete Web Developer Bootcamp",
+      "issuer": "Udemy",
+      "topics": "Full Stack Development Foundations, REST APIs & Databases"
+    },
+    {
+      "id": "cert_9",
+      "title": "JavaScript Algorithms and Data Structures",
+      "issuer": "freeCodeCamp",
+      "topics": "Data Structures, Algorithm Design & ES6+ Javascript"
+    },
+    {
+      "id": "cert_10",
+      "title": "Python for Everybody Specialization",
+      "issuer": "Coursera / University of Michigan",
+      "topics": "Python Programming, Data Structures & Web Services"
+    }
+  ]
+}
+

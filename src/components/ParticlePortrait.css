@@ -1,0 +1,28 @@
+/* Portrait Surface & Reduced Motion Photo matching Nikhil's reference exactly */
+
+.portrait-surface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portrait-surface img,
+.reduced-motion-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.18) brightness(0.92);
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.portrait-surface.static-fallback {
+  width: 100%;
+  height: 100%;
+}
+

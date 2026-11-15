@@ -1,0 +1,153 @@
+/* Journey Page – Nikhil Reference Signature Style */
+
+.journey-page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(90px, 14svh, 150px) max(20px, calc(3vw + var(--safe-left))) max(80px, calc(8svh + var(--safe-bottom)));
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Watermark in top right */
+.journey-watermark {
+  position: fixed;
+  top: max(16px, calc(14px + var(--safe-top)));
+  right: max(16px, calc(16px + var(--safe-right)));
+  text-align: right;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.journey-watermark small {
+  display: block;
+  font: 600 11px var(--mono);
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 2px;
+}
+
+.journey-watermark h1 {
+  font: 400 clamp(44px, 5.2vw, 84px) / 0.85 var(--display);
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.journey-page .eyebrow {
+  display: block;
+  font: 500 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.journey-heading {
+  font: 400 clamp(38px, 4.5vw, 68px) / 0.95 var(--display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 12px 0 34px;
+}
+
+/* Timeline Sections */
+.timeline {
+  margin-bottom: 36px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: minmax(0, 38%) minmax(0, 58%);
+  gap: 4%;
+  border-top: 1px solid #383838;
+  padding: 30px 0;
+}
+
+.timeline-meta {
+  display: block;
+  font: 500 11px var(--mono);
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  font: 400 clamp(20px, 1.8vw, 32px) / 1.1 var(--display);
+  margin: 6px 0 8px;
+  color: #EEE;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.timeline-issuer {
+  display: block;
+  font: 400 12px var(--mono);
+  color: #888;
+  font-weight: normal;
+}
+
+.timeline-desc {
+  font: 400 clamp(13px, 0.95vw, 15px) / 1.65 Arial, sans-serif;
+  color: #AAA;
+  margin-bottom: 14px;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  border: 1px solid #444;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font: 500 10.5px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #BBB;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
+}
+
+.tag-chip:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Footer Link */
+.journey-footer-action {
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.text-link {
+  font: 500 12px var(--mono);
+  color: #AAA;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.text-link:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .journey-watermark {
+    display: none;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+

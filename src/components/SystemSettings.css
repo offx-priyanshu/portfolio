@@ -1,0 +1,262 @@
+/* System Settings Drawer & Sun / Cog Trigger matching Nikhil's reference exactly */
+
+.settings-host {
+  position: relative;
+  z-index: 45;
+}
+
+/* Right Edge Trigger Tab */
+.settings-tab {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: var(--ink);
+  color: #000;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  cursor: pointer;
+  box-shadow: -2px 0 16px rgba(0, 0, 0, 0.85);
+  transition: transform 0.2s ease, width 0.2s ease, background-color 0.2s ease;
+  z-index: 40;
+}
+
+.settings-tab:hover {
+  transform: translateY(-50%) scale(1.06);
+  background: #FFFFFF;
+}
+
+/* Floating System Configuration Panel */
+.settings-panel {
+  position: fixed;
+  z-index: 50;
+  right: max(14px, calc(14px + var(--safe-right)));
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 18px 20px;
+  width: min(320px, calc(100vw - 32px));
+  max-height: 85svh;
+  overflow-y: auto;
+  font: 600 13px var(--mono);
+  border-radius: 8px;
+  background: #0B0B0B;
+  border: 1px solid #484848;
+  box-shadow: 0 16px 54px rgba(0, 0, 0, 0.95);
+  animation: panelSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #EEE;
+}
+
+@keyframes panelSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.settings-panel header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #333;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+}
+
+.settings-panel header strong {
+  color: #FFF;
+}
+
+.settings-panel header small {
+  color: #777;
+  font-size: 10px;
+}
+
+.panel-sublabel {
+  display: block;
+  margin: 14px 0 8px;
+  color: #888;
+  font: 500 9.5px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.audio-sublabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.audio-sublabel button {
+  background: none;
+  border: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 9.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+/* [01] Theme Swatches */
+.swatches {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.swatches button {
+  flex: 1;
+  min-height: 38px;
+  padding: 6px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  font-size: 19px;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+  text-shadow: 0 0 9px currentColor;
+}
+
+.swatches button:hover {
+  border-color: #666;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.swatches button[aria-pressed="true"] {
+  outline: 1.5px solid currentColor;
+  outline-offset: -3px;
+  border-color: currentColor;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* [02] Audio Tracks */
+.settings-panel .track {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  text-align: left;
+  padding: 9px 12px;
+  margin: 6px 0;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #DDD;
+  cursor: pointer;
+  font: 600 11px var(--mono);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.settings-panel .track:hover {
+  border-color: #666;
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.settings-panel .track[aria-pressed="true"] {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-panel .track[aria-pressed="true"]:after {
+  content: "▥";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.track-name {
+  color: inherit;
+}
+
+.track small {
+  display: block;
+  margin-top: 3px;
+  font-size: 8.5px;
+  color: #777;
+}
+
+/* [03] Performance Tiers */
+.tiers {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.tiers button {
+  flex: 1;
+  min-height: 38px;
+  padding: 6px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #AAA;
+  font: 600 11px var(--mono);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tiers button:hover {
+  border-color: #666;
+  color: #FFF;
+}
+
+.tiers button[aria-pressed="true"] {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Utilities Row */
+.utilities {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #333;
+}
+
+.utilities button {
+  flex: 1;
+  min-height: 36px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #333;
+  color: #CCC;
+  border-radius: 4px;
+  cursor: pointer;
+  font: 500 10px var(--mono);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.utilities button:hover {
+  border-color: var(--ink);
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.utilities button[aria-pressed="true"] {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+

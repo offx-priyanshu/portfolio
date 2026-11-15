@@ -1,0 +1,181 @@
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  --mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+  --display: 'Bebas Neue', Impact, sans-serif;
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --ink: #EEEEEE;
+  --bg-carbon: #020202;
+  --bg-panel: rgba(14, 14, 14, 0.88);
+  --rule: #292929;
+  --border-subtle: #343434;
+  --dim: #A0A0A0;
+  --accent: #EEEEEE;
+  --accent-cyan: #22D3EE;
+
+  --dot-bg: radial-gradient(circle, rgba(238, 238, 238, 0.08) 0.55px, transparent 1px) 0 0 / 4px 4px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body.experience {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-carbon);
+  background-image: var(--dot-bg), #020202;
+  color: #EEEEEE;
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection {
+  background: rgba(238, 238, 238, 0.2);
+  color: #FFFFFF;
+}
+
+/* Common Section Titles for Dark Cyber/Editorial Style */
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 50px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--dim);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 5px 14px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  border: 1px solid var(--rule);
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(38px, 4.5vw, 64px);
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes studio-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes line-reveal {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+
+/* Nikhil Universal Interior Page Titles & Corner Watermarks */
+.page-title {
+  position: fixed;
+  right: max(16px, calc(16px + var(--safe-right)));
+  top: max(14px, calc(12px + var(--safe-top)));
+  text-align: right;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.page-title small {
+  font: 600 11px var(--mono);
+  text-transform: uppercase;
+  color: #aaa;
+  letter-spacing: 0.16em;
+}
+
+.page-title a {
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-title a:hover {
+  color: var(--ink);
+}
+
+.page-title h1 {
+  font: 400 clamp(44px, 6.5vw, 120px) / 0.92 var(--display);
+  margin-top: 6px;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.corner-contact {
+  display: none;
+}
+
+@media (min-width: 1300px) {
+  .corner-contact {
+    display: block;
+    position: fixed;
+    bottom: max(20px, calc(16px + var(--safe-bottom)));
+    left: max(24px, calc((100vw - 1560px) / 2 + 24px));
+    font: 400 clamp(10px, 0.9vw, 13px) / 1.6 var(--mono);
+    color: #999;
+    background: linear-gradient(90deg, rgba(5, 5, 5, 0.88), transparent);
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 30;
+    pointer-events: auto;
+  }
+
+  .corner-contact a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .corner-contact strong {
+    display: block;
+    color: #eee;
+  }
+}

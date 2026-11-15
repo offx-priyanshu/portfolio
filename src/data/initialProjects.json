@@ -1,0 +1,261 @@
+[
+  {
+    "id": "01",
+    "title": "ROADVISION AI",
+    "filterCategory": "Computer Vision",
+    "category": "COMPUTER VISION & AUTONOMOUS DRIVING",
+    "tagline": "Real-Time AI Road Monitoring, Lane & Obstacle Detection",
+    "desc": "An AI-powered road monitoring system that detects lane markings, vehicles, and obstacles using real-time computer vision to improve road safety.",
+    "longDesc": "RoadVision AI is an edge-optimized computer vision system for real-time lane tracking, vehicle localization, and obstacle classification. Utilizes YOLOv8 and PyTorch to deliver low-latency telemetry and automated visual hazard alerts for enhanced driver assistance and collision avoidance.",
+    "problemStatement": "Poor road visibility, driver distraction, and delayed obstacle detection lead to severe vehicular collisions. Conventional sensor hardware is expensive and prone to calibration drifts.",
+    "keyFeatures": [
+      "Real-time Lane Detection & Boundary Mapping",
+      "Vehicle and Obstacle Detection with High FPS Inference",
+      "Continuous Road Condition & Traffic Monitoring",
+      "Visual Warning System with Collision Distance Alerts"
+    ],
+    "myContribution": "Architected model inference pipeline using YOLOv8, integrated OpenCV vision feeds, and deployed a lightweight FastAPI inference service.",
+    "tech": [
+      "Python",
+      "OpenCV",
+      "YOLOv8",
+      "PyTorch",
+      "FastAPI"
+    ],
+    "img": "imgRoadVision",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "02",
+    "title": "PATHWEAVER AI",
+    "filterCategory": "AI/ML",
+    "category": "REINFORCEMENT LEARNING & ROBOTICS",
+    "tagline": "Multi-Agent Intelligent Dynamic Path-Planning Simulation",
+    "desc": "An intelligent multi-agent path-planning simulation where multiple AI agents navigate dynamic environments, avoid collisions, and find optimal routes.",
+    "longDesc": "PathWeaver AI models multi-agent navigation in dense, moving environments through deep reinforcement learning. Powered by Gymnasium and Stable-Baselines3 with custom PyGame spatial visualization, agents learn cooperative collision avoidance and shortest path convergence.",
+    "problemStatement": "Traditional static pathfinders (A*, Dijkstra) fail in real-time robotics when multiple dynamic entities cross trajectories under unexpected obstacles.",
+    "keyFeatures": [
+      "Multi-Agent Dynamic Navigation & Swarm Coordination",
+      "Intelligent Reinforcement-Learned Path Planning",
+      "Proactive Collision Avoidance in Real-Time",
+      "Dynamic Simulation Playground with Obstacle Injection",
+      "Performance Visualization & Convergence Analytics"
+    ],
+    "myContribution": "Implemented custom Gymnasium reward functions, trained PPO/DQN policies with Stable-Baselines3, and designed real-time PyGame rendering.",
+    "tech": [
+      "Python",
+      "Gymnasium",
+      "Stable-Baselines3",
+      "PyGame",
+      "Reinforcement Learning"
+    ],
+    "img": "imgPathWeaver",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "03",
+    "title": "AQUAVISION AI",
+    "filterCategory": "Deep Learning",
+    "category": "DEEP LEARNING & IMAGE ENHANCEMENT",
+    "tagline": "Underwater & Low-Light Neural Image Restoration",
+    "desc": "An AI-based underwater and low-light image enhancement solution that improves image clarity, reduces noise, corrects colors, and enhances visibility using deep learning.",
+    "longDesc": "AquaVision AI counters optical attenuation, haze, and blue-green color casts in aquatic and low-light imagery. Utilizes specialized deep CNN and U-Net autoencoder architectures to denoise, rebalance chrominance, and restore structural sharpness with instant side-by-side verification.",
+    "problemStatement": "Underwater surveillance and robotic exploration suffer from severe wavelength scattering, color loss, and sensor noise, rendering raw video feeds unusable.",
+    "keyFeatures": [
+      "Underwater Image Restoration & Haze Elimination",
+      "Low-Light Contrast & Luminance Improvement",
+      "Deep Learning Noise Reduction (U-Net Denoising)",
+      "Chrominance & Wavelength Color Correction",
+      "Interactive Before / After Comparison Slider"
+    ],
+    "myContribution": "Trained U-Net neural network weights on paired degraded datasets, built OpenCV preprocessing filters, and implemented an interactive Streamlit UI.",
+    "tech": [
+      "Python",
+      "PyTorch",
+      "CNN",
+      "U-Net",
+      "OpenCV",
+      "Streamlit"
+    ],
+    "img": "imgAquaVision",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "04",
+    "title": "MODELFORGE AI",
+    "filterCategory": "AI/ML",
+    "category": "MACHINE LEARNING & MLOPS",
+    "tagline": "End-to-End Automated Machine Learning & MLOps Pipeline",
+    "desc": "An end-to-end automated machine learning platform that processes datasets, performs feature engineering, trains multiple ML models, compares performance, and tracks experiments.",
+    "longDesc": "ModelForge AI streamlines the entire ML lifecycle from raw CSV ingestion to model registry. Automates data imputation, encoding, feature scaling, model benchmarking across algorithms (RandomForest, XGBoost, LightGBM), and tracks hyperparameter experiments using MLflow and DVC.",
+    "problemStatement": "Data science teams waste weeks writing repetitive boilerplate code for preprocessing, hyperparameter sweeps, model evaluation, and artifact tracking.",
+    "keyFeatures": [
+      "Instant Dataset Upload & Schema Inference",
+      "Automated Data Preprocessing & Missing Value Imputation",
+      "Intelligent Feature Engineering & Selection",
+      "Automated Parallel Model Training & Hyperparameter Tuning",
+      "Comprehensive Model Performance Comparison (ROC, AUC, F1)",
+      "Full Experiment Tracking with MLflow & DVC Versioning"
+    ],
+    "myContribution": "Designed AutoML orchestration pipelines using Scikit-learn and XGBoost, integrated MLflow experiment metrics logging, and built FastAPI service endpoints.",
+    "tech": [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "Scikit-learn",
+      "XGBoost",
+      "MLflow",
+      "DVC",
+      "FastAPI"
+    ],
+    "img": "imgModelForge",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "05",
+    "title": "DOCUMIND AI",
+    "filterCategory": "Generative AI",
+    "category": "GENERATIVE AI, LLM & RAG",
+    "tagline": "Context-Aware Intelligent Document Knowledge Assistant",
+    "desc": "An intelligent AI document assistant that allows users to upload PDFs and documents, ask natural-language questions, and receive context-aware answers based on document content.",
+    "longDesc": "DocuMind AI enables conversational intelligence over complex enterprise documents. Integrates LangChain, LlamaIndex, and FAISS/ChromaDB vector embeddings to perform semantic chunking, dense retrieval, and cited contextual response generation with zero hallucination.",
+    "problemStatement": "Organizations are overwhelmed by hundreds of multi-page technical manuals and reports, making manual search for critical facts tedious and error-prone.",
+    "keyFeatures": [
+      "Multi-Format PDF & Document Parsing & Chunking",
+      "High-Accuracy Text Extraction & Layout Preservation",
+      "Dense Semantic Vector Search (FAISS & ChromaDB)",
+      "AI-Powered Natural Language Question Answering",
+      "Context-Aware Synthesis via LLM Prompt Engineering",
+      "Source Citation & Grounded Page Reference Answers"
+    ],
+    "myContribution": "Built document ingestion & chunking workflows with LangChain, implemented vector index retrieval with FAISS, and deployed a dual FastAPI/Streamlit assistant.",
+    "tech": [
+      "Python",
+      "LangChain",
+      "LlamaIndex",
+      "LLM",
+      "FAISS",
+      "ChromaDB",
+      "FastAPI",
+      "Streamlit"
+    ],
+    "img": "imgDocuMind",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "06",
+    "title": "DORMIQ (SmartHostel AI)",
+    "filterCategory": "AI/ML",
+    "category": "AI & SMART HOSTEL · TOP 3 CHECKMATE",
+    "tagline": "Intelligent Smart Hostel Management & Incident Triage Platform",
+    "desc": "An intelligent hostel management platform built during an intensive three-month CRT journey with Team Impact Crew, securing TOP 3 position in CHECKMATE. Features AI-driven complaint resolution, student management, room allocation, and automated reporting.",
+    "longDesc": "DORMIQ bridges administrative inefficiencies in collegiate residential halls. Developed with Team Impact Crew during our three-month CRT journey, securing TOP 3 in CHECKMATE. My contributions encompassed system architecture, data models, complaint ticket automation, and AI integration for fast administrative triage.",
+    "problemStatement": "Hostel administrations suffer from chaotic manual records, delayed complaint resolution, and zero real-time visibility into student occupancy and maintenance requests.",
+    "keyFeatures": [
+      "AI-Powered Complaint Resolution & Severity Triage",
+      "Real-Time Student Check-in / Check-out Management",
+      "Automated Room Allocation & Inventory Tracking",
+      "Administrative Dashboard with Escalation Analytics",
+      "Secure Role-Based Student & Warden Access"
+    ],
+    "myContribution": "Class Representative & Project Lead in Team Impact Crew: orchestrated core database design, implemented AI complaint routing workflows, and led end-to-end presentation securing TOP 3 in CHECKMATE.",
+    "tech": [
+      "Python",
+      "React.js",
+      "AI Automation",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "img": "imgDormiq",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "07",
+    "title": "SMS Spam Detection ML App",
+    "filterCategory": "AI/ML",
+    "category": "MACHINE LEARNING · NLP CLASSIFICATION",
+    "tagline": "Real-Time NLP Spam Classifier with 98% Precision",
+    "desc": "A production machine learning application that classifies SMS messages as spam or ham using TF-IDF vectorization and Multinomial Naive Bayes. Achieved verified performance: 97% Accuracy, 98% Precision, and 81% Recall.",
+    "longDesc": "Engineered an end-to-end Machine Learning pipeline for SMS filtering. Cleaned and preprocessed unstructured text using NLP techniques (tokenization, stop-word removal, stemming/lemmatization), vectorized textual data via TF-IDF, and trained a Multinomial Naive Bayes model optimizing for minimal false positives.",
+    "problemStatement": "Mobile users are bombarded with deceptive spam messages and phishing attempts. Traditional rule-based filters fail against evolving obfuscations.",
+    "keyFeatures": [
+      "Text Preprocessing Pipeline (Tokenization, Stopwords, Stemming)",
+      "TF-IDF Feature Extraction with N-gram Support",
+      "Multinomial Naive Bayes Classification Model",
+      "Verified Model Metrics: 97% Accuracy, 98% Precision, 81% Recall",
+      "Interactive Real-Time Inference Interface"
+    ],
+    "myContribution": "Conducted Exploratory Data Analysis, performed text cleaning and vectorization experiments, trained and evaluated multiple classifiers, and built the real-time inference web UI.",
+    "tech": [
+      "Python",
+      "Scikit-learn",
+      "NLTK",
+      "Pandas",
+      "Streamlit"
+    ],
+    "img": "imgSpam",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "08",
+    "title": "SANGAM Restaurant Suite",
+    "filterCategory": "AI/ML",
+    "category": "ENTERPRISE ERP · INVENTORY & POS",
+    "tagline": "Comprehensive Multi-Terminal Restaurant Management System",
+    "desc": "An end-to-end restaurant administration system supporting inventory management, live menu configuration, real-time POS billing, sales analytics, and staff access controls.",
+    "longDesc": "SANGAM provides commercial kitchens and dining establishments with a unified operational command center. Connects tableside orders to kitchen displays while maintaining accurate real-time inventory deductions.",
+    "problemStatement": "Fragmented billing, inventory shrinkage, and lack of daily sales reporting create severe operational leakages for restaurant operators.",
+    "keyFeatures": [
+      "Point-of-Sale (POS) Fast Terminal with Bill Generation",
+      "Dynamic Menu & Category Catalog Management",
+      "Real-Time Raw Ingredient Inventory Depletion Tracking",
+      "Daily / Monthly Revenue Analytics & Sales Breakdown",
+      "Role-Based Access Control for Cashiers, Waitstaff & Managers"
+    ],
+    "myContribution": "Architected relational schema, designed API routes for POS transactions, and built analytics visualization modules for daily revenue reports.",
+    "tech": [
+      "Python",
+      "Flask",
+      "MySQL",
+      "React.js",
+      "Chart.js"
+    ],
+    "img": "imgSangam",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  },
+  {
+    "id": "09",
+    "title": "UniShield Security & AI",
+    "filterCategory": "Computer Vision",
+    "category": "CAMPUS SAFETY · COMPUTER VISION",
+    "tagline": "Automated Campus Verification & Safety Guard",
+    "desc": "Campus incident monitoring and student safety system integrating automated surveillance notifications, gate security verification, and digital audit trails.",
+    "longDesc": "UniShield extends smart campus safety infrastructure by integrating automated visitor check-in, emergency alert broadcasts, and incident logging with automated escalation paths.",
+    "problemStatement": "Campus safety relies heavily on manual security registers that cannot provide real-time status during unauthorized entry or emergency situations.",
+    "keyFeatures": [
+      "Digital Visitor & Student ID Verification",
+      "Automated Incident Alert Dispatches",
+      "Cryptographic Security Logs and Timestamps",
+      "Multi-Role Security Guard & Administration Portals"
+    ],
+    "myContribution": "Implemented authentication flows, notification service routing, and administrative monitoring dashboards.",
+    "tech": [
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "React.js",
+      "Docker"
+    ],
+    "img": "imgUniShield",
+    "demo": "https://github.com/offx-priyanshu",
+    "github": "https://github.com/offx-priyanshu"
+  }
+]
