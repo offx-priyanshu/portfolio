@@ -1,44 +1,60 @@
-![Logo](Photo.png)
+# Priyanshu Kumar — 3D Cybernetic Portfolio & CMS
 
-# Amine Portfolio Showcase 💻
-
-Welcome to Amine's Portfolio Showcase!
-A modern and elegant personal portfolio website built to present my projects, skills, and professional journey using React.js.
----
-
-## 🌟 Website Sections
-
-- **Home**: Developer introduction with avatar and short description  
-- **About**: Experience, tech stack, personal insights, and skill cards  
-- **Projects**: Showcase of projects with images, descriptions, and skills  
-- **Services**: Highlighting services offered with interactive cards  
-- **Contact**: Contact form and social links with interactive hover effects  
+A high-performance, interactive personal portfolio website showcasing data science, AI/ML engineering, and full-stack projects. Built with React 19, Three.js WebGL particle physics, Neon Serverless PostgreSQL database, and a full-featured live CMS admin dashboard.
 
 ---
 
-## ⚡ Features
+## 🌟 Key Features
 
-- Clean & modern UI design
-- Smooth animations and transitions
-- Fully responsive (Desktop / Tablet / Mobile)
-- Interactive sections & hover effects
-- Clean and organized code structure
-- Fast performance & lightweight 
+- **3D WebGL Point Cloud Portrait**: Real-time particle physics that disperse and reform on cursor interaction, with support for alternate view modes (CRT Monitor, 3D Globe, Orbit).
+- **Live CMS & Admin Dashboard**: Direct control over projects, editorial pillars, bio narratives, developer stats, and case studies.
+- **Neon DB Cloud Sync**: Serverless PostgreSQL integration ensuring live edits sync instantly across all visitors.
+- **Verified Candidate Dossier**: Interactive curriculum vitae, dynamic PDF resume download, GPA breakdown, and certifications.
+- **Responsive & Accessible**: Optimized for all viewports with low-power battery-saving tiers and reduced motion modes.
 
 ---
 
-## 🛠 Technologies Used
+## 🛠 Tech Stack
 
-- **React.js** – Building reusable UI components  
-- **Vite** – Fast development environment and build tool  
-- **JavaScript (ES6+)** – Application logic and functionality  
-- **CSS3** – Styling and responsive layout  
-- **Font Awesome / Boxicons** – Icons – Scroll animations  
+- **Frontend**: React 19, Vite, Three.js, Lucide / React Icons
+- **Backend / Database**: Neon Serverless PostgreSQL (`@neondatabase/serverless`), Vercel Serverless Functions
+- **Styling**: Cybernetic Brutalist UI, Custom CSS
+- **Audio Engine**: Web Audio API Soundscapes
 
+---
 
+## 🚀 Getting Started
 
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
 
+### Installation
+```bash
+git clone https://github.com/offx-priyanshu/portfolio.git
+cd portfolio
+npm install
+```
 
+### Environment Variables
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL="your-neon-database-connection-string"
+```
 
+### Development
+```bash
+npm run dev
+```
 
+### Production Build
+```bash
+npm run build
+```
 
+---
+
+## 👤 Author
+**Priyanshu Kumar**  
+- Email: [priyanshugse@gmail.com](mailto:priyanshugse@gmail.com)  
+- Location: Katihar, Bihar, India
